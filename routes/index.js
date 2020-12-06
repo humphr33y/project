@@ -1,8 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const user = require('../models/user')
 
-router.get('/', (req, res) => {
-    res.render('index')
+router.get('/', async (req, res) => {
+    const users = await user.find({})
+    res.render('index',{
+        users
+    })
 })
 
 module.exports = router
