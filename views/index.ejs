@@ -1,1 +1,11 @@
 zzz
+<% if(User){ %>
+<h3>Users</h3>
+        <ul>
+            <% for(var i=0; i<User.length;i++) {%>
+                <li><%=User[i] %></li>
+            <%} %>
+        </ul>
+    <% }else {%>
+        <h3>0</h3>
+    <%} %>
