@@ -12,16 +12,25 @@ mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
+const PORT = process.env.PORT || 3000
+async function start() {
+    try {
+        await mongoose.connect('mongodb+srv://admin:admin@cluster0.eedu5.mongodb.net/accounts',{
+            useNewUrlParser: true,
+            useFindAndModify: false
+        })
+        app.listen(PORT, () =>{
+            console.log("Server has been started...")
+        })
+    } catch(e) {
+        console.log(e)
+    }
+}
 
-const db = mongoose.connection
-db.on('error', error => console.error(error))
-db.once('open', () => console.log('Connected to monogoose'))
-
+start()
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
 app.use('/', indexRouter)
-
-app.listen(process.env.PORT || 3000)
